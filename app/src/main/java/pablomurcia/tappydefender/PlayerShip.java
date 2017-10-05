@@ -39,6 +39,7 @@ public class PlayerShip {
     }
 
     public void update(){
+        x++;
 
         if (boosting) {
             speed += 2;
