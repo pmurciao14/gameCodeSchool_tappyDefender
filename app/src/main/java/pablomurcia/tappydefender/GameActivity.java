@@ -9,12 +9,24 @@ import android.view.View;
 
 public class GameActivity extends AppCompatActivity {
 
+    private TDView gameView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        gameView = new TDView(this);
+        setContentView(gameView);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameView.pause();
+    }
 }
