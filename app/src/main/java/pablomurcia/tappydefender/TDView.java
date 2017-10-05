@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -33,19 +34,22 @@ public class TDView extends SurfaceView implements Runnable {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction() & MotionEvent.ACTION_MASK){
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_DOWN:
+                break;
+        }
+        return true;
+    }
+
+    @Override
     public void run() {
         while (playing){
             update();
             draw();
             control();
-        }
-    }
-
-    private void control() {
-        try {
-            gameThread.sleep(17);
-        } catch (InterruptedException e){
-            Log.e("----->", e.getMessage());
         }
     }
 
@@ -59,6 +63,14 @@ public class TDView extends SurfaceView implements Runnable {
             canvas.drawColor(Color.argb(255,0,0,0));
             canvas.drawBitmap(player.getBitmap(), player.getX(), player.getY(), paint);
             ourHolder.unlockCanvasAndPost(canvas);
+        }
+    }
+
+    private void control() {
+        try {
+            gameThread.sleep(17);
+        } catch (InterruptedException e){
+            Log.e("----->", e.getMessage());
         }
     }
 
