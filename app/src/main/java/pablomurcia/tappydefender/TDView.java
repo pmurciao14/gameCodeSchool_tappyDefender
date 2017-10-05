@@ -42,7 +42,11 @@ public class TDView extends SurfaceView implements Runnable {
     }
 
     private void control() {
-
+        try {
+            gameThread.sleep(17);
+        } catch (InterruptedException e){
+            Log.e("----->", e.getMessage());
+        }
     }
 
     private void update() {
