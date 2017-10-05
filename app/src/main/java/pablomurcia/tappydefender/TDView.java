@@ -25,20 +25,22 @@ public class TDView extends SurfaceView implements Runnable {
     private Canvas canvas;
     private SurfaceHolder ourHolder;
 
-    public TDView(Context context) {
+    public TDView(Context context, int x, int y) {
         super(context);
 
         ourHolder = getHolder();
         paint = new Paint();
-        player = new PlayerShip(context);
+        player = new PlayerShip(context, x, y);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction() & MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_UP:
+                player.stopBoosting();
                 break;
             case MotionEvent.ACTION_DOWN:
+                player.setBoosting();
                 break;
         }
         return true;
