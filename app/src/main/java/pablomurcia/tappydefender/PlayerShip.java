@@ -29,14 +29,14 @@ public class PlayerShip {
 
         speed = INITIAL_SPEED;
         boosting = false;
-        bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.playerShip);
+        bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.player_ship);
 
         maxY = screenY-getBitmap().getHeight();
         minY = 0;
     }
 
     public void update(){
-        x++;
+        //x++;
 
         if (boosting) {
             speed += 2;
@@ -53,7 +53,7 @@ public class PlayerShip {
             speed=MIN_SPEED;
         }
 
-        //Simulate gravity but avoid playerShip go off screen
+        //Simulate gravity but avoid player_ship go off screen
         y -= speed + GRAVITY;
 
         if (y<minY){

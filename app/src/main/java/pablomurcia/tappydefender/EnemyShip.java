@@ -16,7 +16,7 @@ public class EnemyShip {
     private int x, y, maxY, minY, maxX, minX, speed;
 
     public EnemyShip(Context context, int screenX, int screenY){
-        bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.enemyShip);
+        bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.enemy_ship);
         maxX = screenX;
         maxY = screenY;
         minX = 0;
@@ -41,5 +41,17 @@ public class EnemyShip {
             x = maxX;
             y = generator.nextInt(maxY)-bitmap.getHeight();
         }
+    }
+
+    public Bitmap getBitmap(){
+        return bitmap;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

@@ -20,7 +20,11 @@ public class TDView extends SurfaceView implements Runnable {
     volatile boolean playing;
     Thread gameThread = null;
 
+    //Game Objects
     private PlayerShip player;
+    private EnemyShip enemy1, enemy2, enemy3;
+
+    //Drawing Objects
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder ourHolder;
@@ -28,9 +32,15 @@ public class TDView extends SurfaceView implements Runnable {
     public TDView(Context context, int x, int y) {
         super(context);
 
+        //Init holder and drawing objects
         ourHolder = getHolder();
         paint = new Paint();
+
+        //Init ships
         player = new PlayerShip(context, x, y);
+        enemy1 = new EnemyShip(context, x, y);
+        enemy2 = new EnemyShip(context, x, y);
+        enemy3 = new EnemyShip(context, x, y);
     }
 
     @Override
@@ -56,14 +66,28 @@ public class TDView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+        //Update player
         player.update();
+
+        //Update enemies
+        enemy1.update(player.getSpeed());
+        enemy2.update(player.getSpeed());
+        enemy3.update(player.getSpeed());
     }
 
     private void draw(){
         if (ourHolder.getSurface().isValid()){
+            //Lock canvas & reserve memory
             canvas = ourHolder.lockCanvas();
             canvas.drawColor(Color.argb(255,0,0,0));
+
+            //Draw ships
             canvas.drawBitmap(player.getBitmap(), player.getX(), player.getY(), paint);
+            canvas.drawBitmap(enemy1.getBitmap(), enemy1.getX(), enemy1.getY(), paint);
+            canvas.drawBitmap(enemy2.getBitmap(), enemy2.getX(), enemy2.getY(), paint);
+            canvas.drawBitmap(enemy3.getBitmap(), enemy3.getX(), enemy3.getY(), paint);
+
+            //Unlock canvas and update
             ourHolder.unlockCanvasAndPost(canvas);
         }
     }
