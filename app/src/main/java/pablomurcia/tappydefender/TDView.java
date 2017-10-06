@@ -18,6 +18,10 @@ import javax.security.auth.login.LoginException;
  * Created by ifbpmurcia.externos on 5/10/17.
  */
 
+    //TODO: Enemy ships size
+    //TODO: Enemy ships reduce max Y
+    //TODO: Landscape in both positions
+
 public class TDView extends SurfaceView implements Runnable {
 
     volatile boolean playing;
