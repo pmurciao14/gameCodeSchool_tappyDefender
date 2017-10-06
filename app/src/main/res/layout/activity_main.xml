@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="pablomurcia.tappydefender.MainActivity">
+    tools:context="pablomurcia.tappydefender.Activities.MainActivity">
 
     <TextView
         android:id="@+id/textHighScore"

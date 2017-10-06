@@ -11,18 +11,15 @@ import android.graphics.BitmapFactory;
 public class PlayerShip {
 
     private final int INITIAL_SPEED = 1;
-    private final int MIN_SPEED = 1;
-    private final int MAX_SPEED = 20;
     private final int INITIAL_X = 50;
     private final int INITIAL_Y = 50;
-    private int maxY;
-    private int minY;
+    private final int MIN_SPEED = 1;
+    private final int MAX_SPEED = 20;
     private final int GRAVITY = -12;
-
-
 
     private Bitmap bitmap;
     private int x, y;
+    private int maxY, minY;
     private int speed = 0;
     private boolean boosting;
 
@@ -32,7 +29,7 @@ public class PlayerShip {
 
         speed = INITIAL_SPEED;
         boosting = false;
-        bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.ship);
+        bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.playerShip);
 
         maxY = screenY-getBitmap().getHeight();
         minY = 0;
@@ -56,7 +53,7 @@ public class PlayerShip {
             speed=MIN_SPEED;
         }
 
-        //Simulate gravity but avoid ship go off screen
+        //Simulate gravity but avoid playerShip go off screen
         y -= speed + GRAVITY;
 
         if (y<minY){

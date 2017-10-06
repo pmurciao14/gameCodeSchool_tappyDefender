@@ -1,4 +1,4 @@
-package pablomurcia.tappydefender;
+package pablomurcia.tappydefender.Activities;
 
 import android.app.Activity;
 import android.graphics.Point;
@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.View;
+
+import pablomurcia.tappydefender.TDView;
 
 public class GameActivity extends Activity {
 
