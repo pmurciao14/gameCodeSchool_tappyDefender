@@ -9,6 +9,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.security.auth.login.LoginException;
 
 /**
@@ -20,16 +23,20 @@ public class TDView extends SurfaceView implements Runnable {
     volatile boolean playing;
     Thread gameThread = null;
 
+    //Game Constants
+    final int numberOfDustPoints = 150;
+
     //Game Objects
     private PlayerShip player;
     private EnemyShip enemy1, enemy2, enemy3;
+    private ArrayList<SpaceDust> dustList = new ArrayList<SpaceDust>();
 
     //Drawing Objects
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder ourHolder;
 
-    public TDView(Context context, int x, int y) {
+    public TDView(Context context, int screenX, int screenY) {
         super(context);
 
         //Init holder and drawing objects
@@ -37,10 +44,16 @@ public class TDView extends SurfaceView implements Runnable {
         paint = new Paint();
 
         //Init ships
-        player = new PlayerShip(context, x, y);
-        enemy1 = new EnemyShip(context, x, y);
-        enemy2 = new EnemyShip(context, x, y);
-        enemy3 = new EnemyShip(context, x, y);
+        player = new PlayerShip(context, screenX, screenY);
+        enemy1 = new EnemyShip(context, screenX, screenY);
+        enemy2 = new EnemyShip(context, screenX, screenY);
+        enemy3 = new EnemyShip(context, screenX, screenY);
+
+        //Init SpaceDust
+        for (int i = 0; i < numberOfDustPoints; i++){
+            SpaceDust spec = new SpaceDust(screenX, screenY);
+            dustList.add(spec);
+        }
     }
 
     @Override
@@ -73,6 +86,11 @@ public class TDView extends SurfaceView implements Runnable {
         enemy1.update(player.getSpeed());
         enemy2.update(player.getSpeed());
         enemy3.update(player.getSpeed());
+
+        //Update space dust
+        for (SpaceDust sd : dustList){
+            sd.update(player.getSpeed());
+        }
     }
 
     private void draw(){
@@ -80,6 +98,13 @@ public class TDView extends SurfaceView implements Runnable {
             //Lock canvas & reserve memory
             canvas = ourHolder.lockCanvas();
             canvas.drawColor(Color.argb(255,0,0,0));
+
+            //Draw space dust
+            paint.setColor(Color.YELLOW);
+            for (SpaceDust sd:dustList){
+                //canvas.drawPoint(sd.getX(), sd.getY(), paint);
+                canvas.drawText("*", sd.getX(), sd.getY(), paint);
+            }
 
             //Draw ships
             canvas.drawBitmap(player.getBitmap(), player.getX(), player.getY(), paint);
