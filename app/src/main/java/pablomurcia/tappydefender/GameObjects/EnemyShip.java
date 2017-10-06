@@ -1,10 +1,12 @@
-package pablomurcia.tappydefender;
+package pablomurcia.tappydefender.GameObjects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.util.Random;
+
+import pablomurcia.tappydefender.R;
 
 /**
  * Created by ifbpmurcia.externos on 6/10/17.

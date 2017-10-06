@@ -10,15 +10,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-import javax.security.auth.login.LoginException;
+import pablomurcia.tappydefender.GameObjects.EnemyShip;
+import pablomurcia.tappydefender.GameObjects.PlayerShip;
+import pablomurcia.tappydefender.GameObjects.SpaceDust;
 
 /**
  * Created by ifbpmurcia.externos on 5/10/17.
  */
 
-    //TODO: Enemy ships size
     //TODO: Enemy ships reduce max Y
     //TODO: Landscape in both positions
 
@@ -60,28 +60,6 @@ public class TDView extends SurfaceView implements Runnable {
         }
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction() & MotionEvent.ACTION_MASK){
-            case MotionEvent.ACTION_UP:
-                player.stopBoosting();
-                break;
-            case MotionEvent.ACTION_DOWN:
-                player.setBoosting();
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public void run() {
-        while (playing){
-            update();
-            draw();
-            control();
-        }
-    }
-
     private void update() {
         //Update player
         player.update();
@@ -99,14 +77,13 @@ public class TDView extends SurfaceView implements Runnable {
 
     private void draw(){
         if (ourHolder.getSurface().isValid()){
-            //Lock canvas & reserve memory
+            //Lock canvas & paint it black
             canvas = ourHolder.lockCanvas();
             canvas.drawColor(Color.argb(255,0,0,0));
 
             //Draw space dust
-            paint.setColor(Color.YELLOW);
+            paint.setColor(Color.WHITE);
             for (SpaceDust sd:dustList){
-                //canvas.drawPoint(sd.getX(), sd.getY(), paint);
                 canvas.drawText("*", sd.getX(), sd.getY(), paint);
             }
 
@@ -126,6 +103,28 @@ public class TDView extends SurfaceView implements Runnable {
             gameThread.sleep(17);
         } catch (InterruptedException e){
             Log.e("----->", e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction() & MotionEvent.ACTION_MASK){
+            case MotionEvent.ACTION_UP:
+                player.stopBoosting();
+                break;
+            case MotionEvent.ACTION_DOWN:
+                player.setBoosting();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void run() {
+        while (playing){
+            update();
+            draw();
+            control();
         }
     }
 

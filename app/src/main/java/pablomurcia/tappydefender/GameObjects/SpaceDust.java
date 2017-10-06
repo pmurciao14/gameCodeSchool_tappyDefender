@@ -1,4 +1,4 @@
-package pablomurcia.tappydefender;
+package pablomurcia.tappydefender.GameObjects;
 
 import java.util.Random;
 
