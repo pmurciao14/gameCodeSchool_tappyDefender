@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -61,6 +62,19 @@ public class TDView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+        //Collision detection on new positions before draw
+        if (Rect.intersects(player.getHitBox(), enemy1.getHitBox())){
+            enemy1.setX(-100);
+        }
+
+        if (Rect.intersects(player.getHitBox(), enemy2.getHitBox())){
+            enemy2.setX(-100);
+        }
+
+        if (Rect.intersects(player.getHitBox(), enemy3.getHitBox())){
+            enemy3.setX(-100);
+        }
+
         //Update player
         player.update();
 

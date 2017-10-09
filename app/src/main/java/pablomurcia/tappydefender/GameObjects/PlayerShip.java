@@ -3,6 +3,7 @@ package pablomurcia.tappydefender.GameObjects;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 
 import pablomurcia.tappydefender.R;
 
@@ -24,6 +25,7 @@ public class PlayerShip {
     private int maxY, minY;
     private int speed = 0;
     private boolean boosting;
+    private Rect hitBox;
 
     public PlayerShip(Context context, int screenX, int screenY){
         x = INITIAL_X;
@@ -35,6 +37,8 @@ public class PlayerShip {
 
         maxY = screenY-getBitmap().getHeight();
         minY = 0;
+
+        hitBox = new Rect(x,y, bitmap.getWidth(), bitmap.getHeight());
     }
 
     public void update(){
@@ -65,6 +69,13 @@ public class PlayerShip {
         if (y>maxY){
             y=maxY;
         }
+
+        //Refresh hitBox for collisions
+        hitBox.left = x;
+        hitBox.top = y;
+        hitBox.right = x + bitmap.getWidth();
+        hitBox.bottom = y + bitmap.getHeight();
+
     }
 
     public void setBoosting(){
@@ -90,5 +101,9 @@ public class PlayerShip {
 
     public int getY() {
         return y;
+    }
+
+    public Rect getHitBox(){
+        return hitBox;
     }
 }
